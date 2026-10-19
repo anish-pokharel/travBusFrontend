@@ -1,0 +1,84 @@
+:root {
+  --brand: #0b5ed7;
+  --brand-dark: #0a3d91;
+  --seat-available: #e8f5e9;
+  --seat-available-border: #43a047;
+  --seat-selected: #1976d2;
+  --seat-held: #ffb74d;
+  --seat-booked: #9e9e9e;
+  --seat-blocked: #6d4c41;
+}
+body { background: #f4f6fa; min-height: 100vh; }
+.card { border: 0; box-shadow: 0 1px 4px rgba(0,0,0,.08); }
+.table > :not(caption) > * > * { vertical-align: middle; }
+.pointer { cursor: pointer; }
+.stat-card .value { font-size: 1.7rem; font-weight: 700; }
+.min-h-60 { min-height: 60vh; }
+.hero {
+  background: linear-gradient(135deg, var(--brand-dark), var(--brand) 60%, #3d8bfd);
+  color: #fff; padding: 4rem 0 6rem;
+}
+
+/* ---------- seat map ---------- */
+.vehicle-shell {
+  display: inline-block; background: #fff; border: 3px solid #455a64; border-radius: 28px 28px 14px 14px;
+  padding: 14px 14px 18px; position: relative;
+}
+.vehicle-front { text-align: center; font-size: .7rem; letter-spacing: .15em; color: #607d8b; margin-bottom: 6px; border-bottom: 2px dashed #b0bec5; padding-bottom: 4px; }
+.seat-grid { display: grid; position: relative; }
+.cell {
+  display: flex; align-items: center; justify-content: center; flex-direction: column; font-size: .68rem; border-radius: 8px;
+  user-select: none; text-align: center; line-height: 1.05; overflow: hidden;
+}
+.seat { border: 2px solid var(--seat-available-border); background: var(--seat-available); color: #1b5e20; font-weight: 600; position: relative; }
+.seat.berth { border-radius: 4px; }
+.seat.available { cursor: pointer; }
+.seat.available:hover { transform: scale(1.06); }
+.seat.selected { background: var(--seat-selected); border-color: #0d47a1; color: #fff; }
+.seat.held { background: var(--seat-held); border-color: #ef6c00; color: #4e342e; cursor: not-allowed; }
+.seat.booked { background: var(--seat-booked); border-color: #616161; color: #fff; cursor: not-allowed; }
+.seat.blocked { background: var(--seat-blocked); border-color: #3e2723; color: #fff; cursor: not-allowed; }
+.seat.inactive { opacity: .35; }
+.seat.invalid { outline: 3px solid #d32f2f; outline-offset: 1px; }
+.seat.premium { box-shadow: inset 0 0 0 2px #ffd54f; }
+.seat .price { font-weight: 400; font-size: .58rem; }
+.el { background: #eceff1; color: #546e7a; border: 1px dashed #b0bec5; }
+.el.driver { background: #cfd8dc; border-style: solid; }
+.el.front_door, .el.rear_door, .el.side_door { background: #bbdefb; color: #0d47a1; }
+.el.emergency_exit { background: #ffcdd2; color: #b71c1c; }
+.el.luggage { background: #d7ccc8; }
+.el.restricted { background: repeating-linear-gradient(45deg, #ffe0b2, #ffe0b2 6px, #fff 6px, #fff 12px); }
+.el.staff { background: #d1c4e9; }
+.el.aisle { background: transparent; border: 0; }
+.el.label { background: #fff8e1; border-color: #ffca28; }
+.el.invalid { outline: 3px solid #d32f2f; }
+.legend .dot { width: 16px; height: 16px; border-radius: 4px; display: inline-block; border: 2px solid; vertical-align: -3px; margin-right: 4px; }
+
+/* ---------- designer ---------- */
+.designer-cell { border: 1px dashed #cfd8dc; border-radius: 6px; background: #fafafa; }
+.designer-cell.drop { background: #e3f2fd; }
+.designer-cell.sel { outline: 3px solid #ff9800; z-index: 2; }
+
+/* ---------- ticket / printing ---------- */
+.ticket { background: #fff; border: 2px solid #222; border-radius: 10px; padding: 18px; max-width: 800px; margin: 0 auto; position: relative; }
+.ticket.thermal { max-width: 300px; font-size: 12px; padding: 8px; border-radius: 0; border: 1px dashed #000; }
+.ticket .dup-mark { position: absolute; top: 40%; left: 10%; font-size: 4rem; font-weight: 800; color: rgba(220,53,69,.2); transform: rotate(-25deg); pointer-events: none; }
+.ticket.thermal .dup-mark { font-size: 1.8rem; }
+
+@media print {
+  body { background: #fff !important; }
+  .no-print, nav.navbar, footer, .sidebar { display: none !important; }
+  .card { box-shadow: none !important; }
+  .print-area { margin: 0 !important; padding: 0 !important; }
+  @page { margin: 10mm; }
+}
+@media (max-width: 575px) {
+  .hero { padding: 2.5rem 0 4rem; }
+}
+
+/* designer selection + misc */
+.cell.dsel { outline: 3px solid #ff9800; outline-offset: 1px; z-index: 3; }
+.designer-cell { cursor: pointer; }
+.cell[draggable="true"] { cursor: grab; }
+.text-pre-line { white-space: pre-line; }
+.stat-card .value { word-break: break-word; }
